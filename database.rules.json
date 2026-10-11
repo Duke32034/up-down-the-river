@@ -1,0 +1,26 @@
+{
+  "rules": {
+    "games": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && ((!data.exists() && newData.child('hostUid').val() === auth.uid) || data.child('hostUid').val() === auth.uid)",
+        "players": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && root.child('games').child($code).child('phase').val() === 'lobby' && !data.exists() && root.child('games').child($code).child('players').numChildren() < 5",
+            ".validate": "newData.hasChildren(['name','seat']) && newData.child('name').isString() && newData.child('name').val().length <= 24 && newData.child('seat').isNumber()"
+          }
+        },
+        "rounds": {
+          "$round": {
+            "bids": {
+              "$uid": {
+                ".write": "auth != null && auth.uid === $uid && !data.exists() && root.child('games').child($code).child('phase').val() === 'bidding' && root.child('games').child($code).child('players').child(auth.uid).exists() && $round === (root.child('games').child($code).child('roundIndex').val() + '')",
+                ".validate": "newData.hasChildren(['value','blind']) && newData.child('value').isNumber() && newData.child('value').val() >= 0 && newData.child('value').val() <= 8 && newData.child('blind').isBoolean()"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
