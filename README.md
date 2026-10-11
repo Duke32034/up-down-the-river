@@ -9,7 +9,7 @@ A mobile-first, five-player, shared-score card game. Each player joins from thei
 - The dealer rotates every round and bids last.
 - Bids are visible immediately and locked once submitted; the host can correct them.
 - **Brian's Rule:** the final dealer bid cannot make the sum of all bids equal the number of tricks.
-- Exact regular bid scores **10 + bid**; exact blind bid scores **15 + bid**; missed bid scores **0**.
+- Exact regular bid scores **10 + bid**; exact blind bid scores **15 + bid**; missed bid scores **1 point per trick won**.
 - The host records tricks won and can reopen the last completed round.
 - Live scoreboard, game history, and reconnection through a saved room code.
 
