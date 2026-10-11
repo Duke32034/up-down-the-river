@@ -7,7 +7,7 @@
         "players": {
           "$uid": {
             ".write": "auth != null && auth.uid === $uid && root.child('games').child($code).child('phase').val() === 'lobby' && !data.exists()",
-            ".validate": "newData.hasChildren(['name','seat']) && newData.child('name').isString() && newData.child('name').val().length <= 24 && newData.child('seat').isNumber() && newData.child('seat').val() >= 0 && newData.child('seat').val() <= 4"
+            ".validate": "newData.hasChildren(['name','seat']) && newData.child('name').isString() && newData.child('name').val().length <= 24 && newData.child('seat').isNumber() && newData.child('seat').val() >= 0 && newData.child('seat').val() <= 100"
           }
         },
         "rounds": {
@@ -16,6 +16,12 @@
               "$uid": {
                 ".write": "auth != null && auth.uid === $uid && !data.exists() && root.child('games').child($code).child('phase').val() === 'bidding' && root.child('games').child($code).child('players').child(auth.uid).exists()",
                 ".validate": "newData.hasChildren(['value','blind']) && newData.child('value').isNumber() && newData.child('value').val() >= 0 && newData.child('value').val() <= 8 && newData.child('blind').isBoolean()"
+              }
+            },
+            "tricks": {
+              "$uid": {
+                ".write": "auth != null && auth.uid === $uid && root.child('games').child($code).child('phase').val() === 'tricks' && root.child('games').child($code).child('players').child(auth.uid).exists()",
+                ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 8"
               }
             }
           }
