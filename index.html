@@ -72,7 +72,7 @@ function checkRoundCelebration(){
  const scored=Object.keys(game?.rounds||{}).map(Number).filter(i=>game.rounds[i]?.scores).sort((a,b)=>b-a)[0];
  if(scored===undefined)return;
  if(!celebrationInitialized){celebrationInitialized=true;lastCelebratedRound=scored;return}
- if(scored>lastCelebratedRound){lastCelebratedRound=scored;celebrateRound(scored)}
+ if(scored>lastCelebratedRound){lastCelebratedRound=scored;const r=game.rounds[scored],best=Math.max(...players().map(([id])=>Number(r.scores?.[id]||0)));if(me()&&Number(r.scores?.[uid]||0)===best)celebrateRound(scored)}
 }
 function updateBidValidation(){let button=$('#lockBid');if(!button)return;button.disabled=!document.querySelector('input[name="bidValue"]:checked');}
 function history(){let rows=Object.entries(game.rounds||{}).filter(([,r])=>r.scores).sort((a,b)=>Number(b[0])-Number(a[0]));return panel('<h2>Round history</h2>'+(rows.length?rows.map(([i,r])=>'<details><summary>Round '+(Number(i)+1)+' · '+rounds[i]+' cards · '+(Number(i)<=5?(r.trump||'Trump'):'No trump')+'</summary>'+players().map(([id,p])=>'<div class="cardline">'+esc(p.name)+': bid '+r.bids?.[id]?.value+(r.bids?.[id]?.blind?' blind':'')+', won '+r.tricks?.[id]+', <b>+'+(r.scores?.[id]||0)+'</b></div>').join('')+'</details>').join(''):'<p class="muted">Completed rounds appear here.</p>')+(host()&&rows.length?btn('Undo last round','undo','secondary'):''));
