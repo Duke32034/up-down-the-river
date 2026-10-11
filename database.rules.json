@@ -19,6 +19,12 @@
               }
             }
           }
+        },
+        "reconnectRequests": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && !data.exists() && newData.exists() && root.child('games').child($code).child('phase').val() !== 'lobby' && !root.child('games').child($code).child('players').child(auth.uid).exists()",
+            ".validate": "newData.hasChildren(['playerId','requestedAt']) && newData.child('playerId').isString() && root.child('games').child($code).child('players').child(newData.child('playerId').val()).exists() && newData.child('requestedAt').isNumber()"
+          }
         }
       }
     }
