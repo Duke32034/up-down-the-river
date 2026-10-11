@@ -1,5 +1,5 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+window.FIREBASE_CONFIG = {
   apiKey: "AIzaSyDAIx9UrqXvuxQOiusCBJfhecDko-ZQCiY",
   authDomain: "up-and-down-the-river-1804f.firebaseapp.com",
   databaseURL: "https://up-and-down-the-river-1804f-default-rtdb.firebaseio.com",
