@@ -20,7 +20,8 @@
 ## Phase 2 — Digital rules engine
 - Model each card with suit, rank, and deck identifier to distinguish duplicates.
 - Implement secure server-side shuffle and deal, trick evaluation, legal-card validation, and deterministic scoring.
-- Confirm rule details for duplicate cards across decks, blind bids, and trump selection before enabling gameplay.
+- Duplicate-card tie rule (confirmed): when two or more cards of the same suit and rank are played in a trick, the earliest played copy outranks later identical copies. Apply normal led-suit and trump precedence first; use play order only to break otherwise equal card ranks. Keep a unique deck/card ID for each physical copy.
+- Confirm remaining rule details for blind bids and trump selection before enabling gameplay.
 
 ## Phase 3 — Secure Firebase multiplayer
 - Use server-authoritative Cloud Functions for deal/play/turn transitions.
